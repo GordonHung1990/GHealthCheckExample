@@ -1,0 +1,28 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12.8
+    container_name: "healthcheck-example-postgres"
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "1qaz2wsx"
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  mongodb:
+    image: mongo:latest
+    container_name: healthcheck-example-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 1qaz2wsx
+    ports:
+    - 27017:27017
+    restart: unless-stopped
+  redis:
+    image: redis:alpine
+    container_name: healthcheck-example-redis
+    command: redis-server --requirepass 1qaz@WSX
+    ports:
+    - 6379:6379
+    restart: unless-stopped
